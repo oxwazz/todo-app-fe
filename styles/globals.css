@@ -1,16 +1,18 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+$swatch_1: #222C41;
+$swatch_1: #343F54;
+$swatch_3: #FFFFFF;
+$swatch_2: #6969DE;
+$swatch_2: #F7C046;
+$swatch_2: #E86566;
+$swatch_2: #67C7B3;
+$swatch_2: #8E9CAD;
+*/
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+  background: #222c41;
 }
