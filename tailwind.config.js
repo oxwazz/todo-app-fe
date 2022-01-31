@@ -1,7 +1,14 @@
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        custom: {
+          scrollbarlight: '#ffffff14',
+        },
+      },
+    },
   },
-  plugins: [],
+
+  plugins: [require('./src/libs/scrollbar')],
 }

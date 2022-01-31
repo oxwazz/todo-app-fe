@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+radius = (width / 2) - (strokeWidth * 2)
+circumference = radius * 2 * PI
+offset = circumference - percent / 100 * circumference;
+
+*/
+/* 52 * 2 * 3.14 */
+/* https://css-tricks.com/building-progress-ring-quickly/ */
+.testing {
+  stroke-dasharray: calc(17 * 2 * 3.14) calc(17 * 2 * 3.14);
+  stroke-dashoffset: calc((17 * 2 * 3.14) - 10 / 100 * (17 * 2 * 3.14));
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* 
+$swatch_1: #222C41;
+$swatch_1: #343F54;
+$swatch_3: #FFFFFF;
+$swatch_2: #6969DE;
+$swatch_2: #F7C046;
+$swatch_2: #E86566;
+$swatch_2: #67C7B3;
+$swatch_2: #8E9CAD;
+$swatch_2: #4D4C58;
+*/
+
+body {
+  background: #222c41;
+}
