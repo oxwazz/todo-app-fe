@@ -30,34 +30,34 @@ const Home: NextPage = ({ children }) => {
     <div tw="grid grid-cols-[250px auto 250px] gap-6 p-4 h-screen">
       <div tw="bg-white rounded-3xl p-6 flex flex-col">
         {/* LEFT SIDE */}
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlinePieChart
             style={{ stroke: '#6969DE', strokeWidth: '10' }}
             tw="text-[#6969DE] text-xl"
           />
           <p tw="text-[#6969DE] font-bold">Dashboard</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineCalendar tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Calendar</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineRise tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Activity</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineMessage tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Messages</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineLineChart tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Project Plan</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineSetting tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Settings</p>
         </div>
-        <div tw="hover:bg-[#ffeaea] rounded-full flex justify-items-center items-center gap-4 px-3 py-3 mt-auto">
+        <div tw="hover:bg-[#ffeaea] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3 mt-auto">
           <AiOutlineLogout tw="text-[#E86566] text-xl" />
           <p tw="text-[#E86566]">Log out</p>
         </div>
