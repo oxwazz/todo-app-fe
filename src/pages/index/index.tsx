@@ -33,7 +33,7 @@ interface ReturnData {
 interface Tes {}
 
 const fetchData = async ({ signal }: any): Promise<ReturnData> => {
-  const { data } = await axios.get('http://localhost:3030/todos', {
+  const { data } = await axios.get('https://qazwsx-todo-app-be.herokuapp.com/todos', {
     // Pass the signal to `axios`
     signal,
   })
@@ -41,7 +41,7 @@ const fetchData = async ({ signal }: any): Promise<ReturnData> => {
 }
 
 const updateData = async ({ id, is_done }: any): Promise<any> => {
-  const data = await axios.patch('http://localhost:3030/todos/' + id, {
+  const data = await axios.patch('https://qazwsx-todo-app-be.herokuapp.com/todos/' + id, {
     is_done: is_done.toString(),
   })
   return data
@@ -211,8 +211,8 @@ const Home: NextPage = () => {
                       <FaTasks tw="text-sm text-[#F7C046]" />
                     </div>
                     <div tw="mr-auto">
-                      <p tw="text-white font-bold text-xs mb-[2px]">{task.description}</p>
-                      <p tw="text-[#8E9CAD] text-[11px]">{task.name}</p>
+                      <p tw="text-white font-bold text-sm mb-[2px]">{task.description}</p>
+                      <p tw="text-[#8E9CAD] text-xs">{task.name}</p>
                     </div>
                     <div
                       tw="cursor-pointer"
