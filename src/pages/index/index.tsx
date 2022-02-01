@@ -111,7 +111,7 @@ const Home: NextPage = () => {
         {/* MAIN_1 */}
         <div tw="pt-8 flex items-center gap-4">
           <h1 tw="text-white text-2xl font-bold mr-auto">Dashboard</h1>
-          <div tw="bg-[#F7C046] cursor-pointer rounded-xl flex items-center py-2 px-4 text-sm text-[#222c41]">
+          <div tw="bg-[#F7C046] cursor-pointer rounded-xl flex items-center py-2 px-4 text-sm text-[#222c41] hidden sm:block">
             <AiOutlinePlus tw="text-[#222c41] mr-1" />
             New Task
           </div>
@@ -127,7 +127,7 @@ const Home: NextPage = () => {
           ></div>
         </div>
         {/* MAIN_2 */}
-        <div tw="flex gap-6">
+        <div tw="flex gap-6 flex-col sm:flex-row">
           <div tw="bg-[#343F54] rounded-2xl w-full flex items-center px-5 py-3">
             <div tw="w-[45px] h-[45px] border border-[#8E9CAD] rounded-xl flex justify-center items-center mr-3">
               <BiTask tw="text-2xl text-[#F7C046]" />

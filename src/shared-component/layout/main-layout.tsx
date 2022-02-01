@@ -27,10 +27,10 @@ import { Children } from 'react'
 
 const Home: NextPage = ({ children }) => {
   return (
-    <div tw="grid grid-cols-[250px auto 250px] gap-6 p-4 h-screen">
-      <div tw="bg-white rounded-3xl p-6 flex flex-col">
-        {/* LEFT SIDE */}
-        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+    <div tw="grid sm:grid-cols-1 md:grid-cols-[250px auto] lg:grid-cols-[250px auto 250px] gap-6 p-4 h-screen">
+      {/* LEFT SIDE */}
+      <div tw="bg-white rounded-3xl p-6 flex flex-col hidden sm:hidden md:block">
+        <div tw="hover:bg-[#f3f3f3]  cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlinePieChart
             style={{ stroke: '#6969DE', strokeWidth: '10' }}
             tw="text-[#6969DE] text-xl"
@@ -67,7 +67,7 @@ const Home: NextPage = ({ children }) => {
       {/* <div tw="bg-[#222c41] rounded-3xl">&nbsp;</div> */}
 
       {/* RIGHT SIDE */}
-      <div tw="bg-gradient-to-b from-[#343F54] rounded-3xl">&nbsp;</div>
+      <div tw="bg-gradient-to-b from-[#343F54] rounded-3xl hidden sm:hidden lg:block">&nbsp;</div>
     </div>
   )
 }
