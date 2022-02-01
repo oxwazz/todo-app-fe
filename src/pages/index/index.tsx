@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlinePlus, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { BiTask } from 'react-icons/bi'
 import { FaTasks } from 'react-icons/fa'
@@ -200,6 +200,9 @@ const Home: NextPage = () => {
               <p tw="text-white font-bold">Today Tasks</p>
               <BsThreeDots tw="text-white text-lg cursor-pointer" />
             </div>
+            {isLoading && (
+              <AiOutlineLoading3Quarters tw="animate-spin text-[#F7C046] text-2xl m-auto" />
+            )}
             {!isLoading &&
               data?.row.map((task, index) => (
                 <React.Fragment key={index}>
