@@ -6,6 +6,7 @@ const customStyles = css({
   body: {
     // WebkitTapHighlightColor: theme`colors.purple.500`,
     WebkitTapHighlightColor: 'transparent',
+    background: '#222c41',
     ...tw`antialiased`,
   },
 })

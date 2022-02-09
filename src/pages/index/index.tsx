@@ -20,7 +20,7 @@ import { MainLayout } from '@/src/shared-component/layout'
 // const Input = ({ hasHover }: any) => <input css={[tw`border`, hasHover && hoverStyles]} />
 
 interface tasks {
-  id: string
+  task_id: string
   name: string
   description: string
   is_done: boolean
@@ -40,8 +40,8 @@ const fetchData = async ({ signal }: any): Promise<ReturnData> => {
   return { row: data }
 }
 
-const updateData = async ({ id, is_done }: any): Promise<any> => {
-  const data = await axios.patch('https://qazwsx-todo-app-be.herokuapp.com/todos/' + id, {
+const updateData = async ({ task_id, is_done }: any): Promise<any> => {
+  const data = await axios.patch('https://qazwsx-todo-app-be.herokuapp.com/todos/' + task_id, {
     is_done: is_done.toString(),
   })
   return data
@@ -57,13 +57,15 @@ const Home: NextPage = () => {
       await queryClient.cancelQueries('/todos')
 
       // Create optimistic todo
-      console.log(33331, { variables })
-      const optimisticTodo = { id: variables.id, is_done: variables.is_done }
+      const optimisticTodo = { task_id: variables.task_id, is_done: variables.is_done }
 
       // Add optimistic todo to todos list
       queryClient.setQueryData<ReturnData | undefined>('/todos', (old) => {
         if (old) {
-          const newDataIndex = old.row.findIndex((v) => v.id === optimisticTodo.id)
+          const newDataIndex = old.row.findIndex((v) => {
+            console.log(3333, newDataIndex, v, optimisticTodo)
+            return v.task_id === optimisticTodo.task_id
+          })
           const newData1 = [...old.row]
           newData1[newDataIndex] = { ...newData1[newDataIndex], ...optimisticTodo }
           console.log({ newData1 })
@@ -76,7 +78,6 @@ const Home: NextPage = () => {
       return { optimisticTodo }
     },
     // onSuccess: (result, variables, context) => {
-    //   console.log(33331, { result, variables, context })
     //   // Replace optimistic todo in the todos list with the result
     //   queryClient.setQueryData('/todos', (old) =>
     //     old.map((todo) => (todo.id === context.optimisticTodo.id ? result : todo))
@@ -103,15 +104,13 @@ const Home: NextPage = () => {
   // )
   const mutation = useMutation('addTodo')
 
-  console.log(3333, { data })
-
   return (
     <MainLayout>
-      <div tw="rounded-3xl flex flex-col gap-6 flex flex-col">
+      <div tw="rounded-3xl flex flex-col gap-4 md:gap-6 flex flex-col">
         {/* MAIN_1 */}
         <div tw="pt-8 flex items-center gap-4">
           <h1 tw="text-white text-2xl font-bold mr-auto">Dashboard</h1>
-          <div tw="bg-[#F7C046] cursor-pointer rounded-xl flex items-center py-2 px-4 text-sm text-[#222c41] hidden sm:block">
+          <div tw="bg-[#F7C046] cursor-pointer rounded-xl flex items-center py-2 px-4 text-sm text-[#222c41] hidden sm:flex">
             <AiOutlinePlus tw="text-[#222c41] mr-1" />
             New Task
           </div>
@@ -127,7 +126,7 @@ const Home: NextPage = () => {
           ></div>
         </div>
         {/* MAIN_2 */}
-        <div tw="flex gap-6 flex-col sm:flex-row">
+        {/* <div tw="flex gap-4 md:gap-6 flex-col sm:flex-row">
           <div tw="bg-[#343F54] rounded-2xl w-full flex items-center px-5 py-3">
             <div tw="w-[45px] h-[45px] border border-[#8E9CAD] rounded-xl flex justify-center items-center mr-3">
               <BiTask tw="text-2xl text-[#F7C046]" />
@@ -190,7 +189,7 @@ const Home: NextPage = () => {
               </svg>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* MAIN_3 */}
         {/* <div tw="bg-[#343F54] rounded-xl h-[230px]">&nbsp;</div> */}
         {/* MAIN_4 */}
@@ -218,7 +217,8 @@ const Home: NextPage = () => {
                       tw="cursor-pointer"
                       onClick={() => {
                         // const variables = () => {}
-                        const variables: any = { id: task.id, is_done: !task.is_done }
+                        const variables: any = { task_id: task.task_id, is_done: !task.is_done }
+                        console.log(33334, variables)
                         mutation.mutate(variables)
                       }}
                     >
@@ -232,6 +232,9 @@ const Home: NextPage = () => {
               ))}
           </div>
         </div>
+      </div>
+      <div tw="fixed bottom-6 right-6 w-10 h-10 bg-[#F7C046] rounded-full flex justify-center items-center sm:hidden">
+        <AiOutlinePlus tw="text-[#222c41]" />
       </div>
     </MainLayout>
   )

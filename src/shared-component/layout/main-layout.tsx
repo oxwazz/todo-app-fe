@@ -27,17 +27,17 @@ import { Children } from 'react'
 
 const Home: NextPage = ({ children }) => {
   return (
-    <div tw="grid sm:grid-cols-1 md:grid-cols-[250px auto] lg:grid-cols-[250px auto 250px] gap-6 p-4 h-screen">
+    <div tw="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[250px auto] gap-6 p-4 h-screen">
       {/* LEFT SIDE */}
-      <div tw="bg-white rounded-3xl p-6 flex flex-col hidden sm:hidden md:block">
+      <div tw="bg-white rounded-3xl p-6 flex flex-col hidden sm:hidden md:flex">
         <div tw="hover:bg-[#f3f3f3]  cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlinePieChart
             style={{ stroke: '#6969DE', strokeWidth: '10' }}
             tw="text-[#6969DE] text-xl"
           />
-          <p tw="text-[#6969DE] font-bold">Dashboard</p>
+          <p tw="text-[#6969DE] font-bold">Tasks</p>
         </div>
-        <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
+        {/* <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineCalendar tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Calendar</p>
         </div>
@@ -52,7 +52,7 @@ const Home: NextPage = ({ children }) => {
         <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineLineChart tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Project Plan</p>
-        </div>
+        </div> */}
         <div tw="hover:bg-[#f3f3f3] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3">
           <AiOutlineSetting tw="text-[#8E9CAD] text-xl" />
           <p tw="text-[#8E9CAD]">Settings</p>
@@ -63,11 +63,11 @@ const Home: NextPage = ({ children }) => {
         </div>
       </div>
       {/* MAIN */}
-      {children ? children : <div></div>}
+      {children ? children : ''}
       {/* <div tw="bg-[#222c41] rounded-3xl">&nbsp;</div> */}
 
       {/* RIGHT SIDE */}
-      <div tw="bg-gradient-to-b from-[#343F54] rounded-3xl hidden sm:hidden lg:block">&nbsp;</div>
+      {/* <div tw="bg-gradient-to-b from-[#343F54] rounded-3xl hidden sm:hidden lg:block">&nbsp;</div> */}
     </div>
   )
 }
