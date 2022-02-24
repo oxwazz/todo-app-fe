@@ -17,6 +17,10 @@ offset = circumference - percent / 100 * circumference;
   transform-origin: 50% 50%;
 }
 
+body {
+  background-color: #222c41;
+}
+
 /* 
 $swatch_1: #222C41;
 $swatch_1: #343F54;
