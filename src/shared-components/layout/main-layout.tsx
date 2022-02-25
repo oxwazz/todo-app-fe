@@ -2,6 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import { AiOutlinePieChart, AiOutlineLogout, AiOutlineSetting } from 'react-icons/ai'
+import { signOut } from 'next-auth/react'
 
 const Home: NextPage = ({ children }) => {
   const router = useRouter()
@@ -12,6 +13,10 @@ const Home: NextPage = ({ children }) => {
 
   const handleClickMenuSetting = () => {
     router.push('/setting')
+  }
+
+  const onLogout = () => {
+    signOut({ callbackUrl: 'http://localhost:3030/api/auth/signin' })
   }
 
   return (
@@ -35,7 +40,10 @@ const Home: NextPage = ({ children }) => {
           <AiOutlineSetting className="text-[#8E9CAD] text-xl" />
           <p className="text-[#8E9CAD]">Settings</p>
         </div>
-        <div className="hover:bg-[#ffeaea] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3 mt-auto">
+        <div
+          className="hover:bg-[#ffeaea] cursor-pointer rounded-full flex justify-items-center items-center gap-4 px-3 py-3 mt-auto"
+          onClick={onLogout}
+        >
           <AiOutlineLogout className="text-[#E86566] text-xl" />
           <p className="text-[#E86566]">Log out</p>
         </div>

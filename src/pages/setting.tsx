@@ -8,7 +8,7 @@ import { BsThreeDots, BsFillCheckSquareFill } from 'react-icons/bs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
 
-import { MainLayout } from '@/src/shared-component/layout'
+import { MainLayout } from '@/src/shared-components/layout'
 
 // const hoverStyles = css`
 //   &:hover {

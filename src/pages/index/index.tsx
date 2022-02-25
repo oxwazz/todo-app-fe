@@ -8,8 +8,9 @@ import { BsThreeDots, BsFillCheckSquareFill } from 'react-icons/bs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
 import Head from 'next/head'
+import { useSession } from 'next-auth/react'
 
-import { MainLayout } from '@/src/shared-component/layout'
+import { MainLayout } from '@/src/shared-components/layout'
 
 // const hoverStyles = css`
 //   &:hover {
@@ -49,6 +50,8 @@ const updateData = async ({ task_id, is_done }: any): Promise<any> => {
 
 const Home: NextPage = () => {
   const queryClient = useQueryClient()
+  const { data: session, status } = useSession()
+  console.log(3333, session, status)
 
   queryClient.setMutationDefaults('addTodo', {
     mutationFn: updateData,

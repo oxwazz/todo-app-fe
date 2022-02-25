@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import toast, { Toaster } from 'react-hot-toast'
 
+import { login } from '@/src/requests'
+import { useRouter } from 'next/router'
+
 type FormValues = {
   username: string
   password: string
@@ -14,17 +17,14 @@ type FormValues = {
 
 const schema = yup
   .object({
-    username: yup.string().min(3).required(),
-    password: yup.string().min(8).required(),
+    username: yup.string().required(),
+    password: yup.string().required(),
   })
   .required()
 
 export default function Register() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const router = useRouter()
+  const { register, handleSubmit } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
       username: '',
@@ -33,12 +33,16 @@ export default function Register() {
   })
 
   const onSubmit = async (formData: FormValues) => {
-    const myPromise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve('foo'), 3000)
-    })
+    const loginPromise = async () => {
+      const [err, data] = await login(formData)
+      console.log(33331, err, data)
+      if (err) throw Error('Nope. Try again.')
+      setTimeout(() => router.push('/app'), 1300)
+      return data
+    }
 
     console.log(33331, 'atas')
-    toast.promise(myPromise, {
+    toast.promise(loginPromise(), {
       loading: 'Sign In..',
       success: 'Sign In Success',
       error: 'Sign In Error',
@@ -61,7 +65,7 @@ export default function Register() {
 
   return (
     <>
-      <Toaster />
+      {/* <Toaster /> */}
       <div className="container mx-auto flex justify-center items-center h-screen">
         <div className="flex flex-col gap-5 items-center">
           <h1 className="text-2xl font-bold text-white">Todo App</h1>
@@ -70,17 +74,13 @@ export default function Register() {
               <label className="text-white" htmlFor="username">
                 Username
               </label>
-
               <input
                 className="p-2 rounded-md"
-                placeholder="hello@world.com"
+                placeholder="Type your username"
                 id="username"
                 type="text"
                 {...register('username')}
               />
-              {errors.username && (
-                <strong className="text-[#F7C046] text-xs">{errors.username.message}</strong>
-              )}
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-white" htmlFor="password">
@@ -93,10 +93,6 @@ export default function Register() {
                 type="password"
                 {...register('password')}
               />
-              {console.log(errors)}
-              {errors.password && (
-                <strong className="text-[#F7C046] text-xs">{errors.password.message}</strong>
-              )}
             </div>
             <button
               className="mt-4 p-2 rounded-md bg-[#F7C046] hover:bg-[#daa32f] text-[#222c41]"

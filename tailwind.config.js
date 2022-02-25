@@ -14,5 +14,5 @@ module.exports = {
     },
   },
 
-  plugins: [require('./src/libs/scrollbar')],
+  plugins: [require('./src/libraries/scrollbar')],
 }
