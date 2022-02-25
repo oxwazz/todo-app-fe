@@ -1,57 +1,28 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { AiOutlinePlus, AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { IoMdNotificationsOutline } from 'react-icons/io'
-import { BiTask } from 'react-icons/bi'
+import { AiOutlinePlus, AiOutlineLoading3Quarters, AiOutlineSetting } from 'react-icons/ai'
 import { FaTasks } from 'react-icons/fa'
 import { BsThreeDots, BsFillCheckSquareFill } from 'react-icons/bs'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import axios from 'axios'
 import Head from 'next/head'
-import { useSession } from 'next-auth/react'
 
 import { MainLayout } from '@/src/shared-components/layout'
+import { fetchTodos as fetchData } from '@/src/requests'
+import { updateTodo as updateData } from '@/src/requests'
 
-// const hoverStyles = css`
-//   &:hover {
-//     border-color: black;
-//     ${tw`text-black`}
-//   }
-// `
-// const Input = ({ hasHover }: any) => <input css={[tw`border`, hasHover && hoverStyles]} />
-
-interface tasks {
+type tasks = {
   task_id: string
   name: string
   description: string
   is_done: boolean
 }
 
-interface ReturnData {
+type ReturnData = {
   row: tasks[]
-}
-
-interface Tes {}
-
-const fetchData = async ({ signal }: any): Promise<ReturnData> => {
-  const { data } = await axios.get('https://qazwsx-todo-app-be.herokuapp.com/todos', {
-    // Pass the signal to `axios`
-    signal,
-  })
-  return { row: data }
-}
-
-const updateData = async ({ task_id, is_done }: any): Promise<any> => {
-  const data = await axios.patch('https://qazwsx-todo-app-be.herokuapp.com/todos/' + task_id, {
-    is_done: is_done.toString(),
-  })
-  return data
 }
 
 const Home: NextPage = () => {
   const queryClient = useQueryClient()
-  const { data: session, status } = useSession()
-  console.log(3333, session, status)
 
   queryClient.setMutationDefaults('addTodo', {
     mutationFn: updateData,
@@ -80,31 +51,10 @@ const Home: NextPage = () => {
       // Return context with the optimistic todo
       return { optimisticTodo }
     },
-    // onSuccess: (result, variables, context) => {
-    //   // Replace optimistic todo in the todos list with the result
-    //   queryClient.setQueryData('/todos', (old) =>
-    //     old.map((todo) => (todo.id === context.optimisticTodo.id ? result : todo))
-    //   )
-    // },
-    // onError: (error, variables, context) => {
-    //   // Remove optimistic todo from the todos list
-    //   queryClient.setQueryData('/todos', (old) =>
-    //     old.filter((todo) => todo.id !== context.optimisticTodo.id)
-    //   )
-    // },
     retry: 3,
   })
 
   const { data, isLoading, isError } = useQuery('/todos', ({ signal }) => fetchData({ signal }))
-  // const mutation = useMutation(
-  //   (newData: any) =>
-  //     axios.patch('https://qazwsx-todo-app-be.herokuapp.com/todos/' + newData.id, newData),
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries('/todos')
-  //     },
-  //   }
-  // )
   const mutation = useMutation('addTodo')
 
   return (
@@ -125,8 +75,8 @@ const Home: NextPage = () => {
               <AiOutlinePlus className="text-[#222c41] mr-1" />
               New Task
             </div>
-            <div className="w-[2.125rem] h-[2.125rem] cursor-pointer border border-[#343F54] rounded-full flex justify-center items-center">
-              <IoMdNotificationsOutline className="text-white" />
+            <div className="w-[2.125rem] h-[2.125rem] cursor-pointer border border-[#343F54] rounded-full flex justify-center items-center sm:hidden">
+              <AiOutlineSetting className="text-white" />
             </div>
             <div
               className="w-[2.125rem] h-[2.125rem] cursor-pointer rounded-full bg-cover"
