@@ -36,9 +36,17 @@ export default function Register() {
     const loginPromise = async () => {
       const [err, data] = await login(formData)
       console.log(33331, err, data)
+
+      const tes = await signIn('credentials', {
+        username: formData.username,
+        password: formData.password,
+        redirect: false,
+      })
+
+      console.log(33331, tes)
+
       if (err) throw Error('Nope. Try again.')
-      setTimeout(() => router.push('/app'), 1300)
-      return data
+      router.push('/app')
     }
 
     toast.promise(loginPromise(), {
@@ -46,14 +54,6 @@ export default function Register() {
       success: 'Sign In Success',
       error: 'Sign In Error',
     })
-
-    const tes = await signIn('credentials', {
-      username: formData.username,
-      password: formData.password,
-      redirect: false,
-    })
-
-    console.log(3333, tes)
   }
 
   const onError = async (error: any) => {

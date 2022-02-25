@@ -1,11 +1,9 @@
 import { getToken } from 'next-auth/jwt'
-import { NextResponse, NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function middleware(req: any) {
-  console.log(33332, 'sdadsfsdf', req.url.includes('/login'))
-
   const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-  console.log(33332, session, process.env.NEXTAUTH_SECRET)
+  console.log(3333, session)
   if (!session) return NextResponse.redirect('/api/auth/signin')
 
   // If user is authenticated, continue.
