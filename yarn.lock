@@ -100,6 +100,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@headlessui/react@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@headlessui/react@npm:1.5.0"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: e3373dfb73936950d659a87718fb9fdedc599b344b30cb0d8b1ef0a2ec13d6f405c653fa51284236788658840ece82c6a8538a5a5931e595274e9590b2020079
+  languageName: node
+  linkType: hard
+
+"@heroicons/react@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@heroicons/react@npm:1.0.5"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 12114af19c17f69140cc7338e4cd12fe38098ad3ed79f02762106160655cde3ebdba58a2b26f1067f720786187364fd9465bc72f02aad85b0ead8172d76aa51d
+  languageName: node
+  linkType: hard
+
 "@hookform/resolvers@npm:^2.8.8":
   version: 2.8.8
   resolution: "@hookform/resolvers@npm:2.8.8"
@@ -3602,6 +3621,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "todo-app@workspace:."
   dependencies:
+    "@headlessui/react": ^1.5.0
+    "@heroicons/react": ^1.0.5
     "@hookform/resolvers": ^2.8.8
     "@types/node": 17.0.13
     "@types/react": 17.0.38

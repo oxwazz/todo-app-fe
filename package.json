@@ -8,6 +8,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@heroicons/react": "^1.0.5",
     "@hookform/resolvers": "^2.8.8",
     "axios": "^0.25.0",
     "framer-motion": "^6.2.8",

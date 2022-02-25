@@ -9,6 +9,7 @@ import Head from 'next/head'
 import { MainLayout } from '@/src/shared-components/layout'
 import { fetchTodos as fetchData } from '@/src/requests'
 import { updateTodo as updateData } from '@/src/requests'
+import DialogUser from './dialog-user'
 
 type tasks = {
   task_id: string
@@ -57,6 +58,8 @@ const Home: NextPage = () => {
   const { data, isLoading, isError } = useQuery('/todos', ({ signal }) => fetchData({ signal }))
   const mutation = useMutation('addTodo')
 
+  console.log(333399, { data, isLoading, isError })
+
   return (
     <>
       <Head>
@@ -78,13 +81,7 @@ const Home: NextPage = () => {
             <div className="w-[2.125rem] h-[2.125rem] cursor-pointer border border-[#343F54] rounded-full flex justify-center items-center sm:hidden">
               <AiOutlineSetting className="text-white" />
             </div>
-            <div
-              className="w-[2.125rem] h-[2.125rem] cursor-pointer rounded-full bg-cover"
-              style={{
-                backgroundImage:
-                  'url(https://lh3.googleusercontent.com/ogw/ADea4I6MKP2OEXDsm5vq-vsdEj76LV5RUCZZOgmlu896CnY=s192-c-mo)',
-              }}
-            ></div>
+            <DialogUser />
           </div>
 
           <div className="bg-[#343F54] rounded-2xl flex-grow relative overflow-auto scrollbar scrollbar-thumb-rounded scrollbar-thumb-custom-scrollbarlight">
