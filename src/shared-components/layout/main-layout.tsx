@@ -16,7 +16,7 @@ const Home: NextPage = ({ children }) => {
   }
 
   const onLogout = () => {
-    signOut({ callbackUrl: 'http://localhost:3030/api/auth/signin' })
+    signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/signin` })
   }
 
   return (

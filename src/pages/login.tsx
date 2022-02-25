@@ -41,14 +41,11 @@ export default function Register() {
       return data
     }
 
-    console.log(33331, 'atas')
     toast.promise(loginPromise(), {
       loading: 'Sign In..',
       success: 'Sign In Success',
       error: 'Sign In Error',
     })
-
-    console.log(33331, 'bawah')
 
     const tes = await signIn('credentials', {
       username: formData.username,

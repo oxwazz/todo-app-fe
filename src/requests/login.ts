@@ -9,6 +9,7 @@ const login = async ({ username, password }: Params): Promise<DataReturn> => {
     const { data } = await axios.post(endpoint, { username, password })
     return [null, data]
   } catch (error: any) {
+    console.log(33334, error)
     console.log(error.response.data.error)
     return [error.response.data.error, {}]
   }

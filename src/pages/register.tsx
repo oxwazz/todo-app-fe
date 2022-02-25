@@ -36,8 +36,6 @@ export default function Register() {
     },
   })
 
-  console.log(33331, isSubmitting, submitCount)
-
   const onSubmit = async (formData: FormValues) => {
     const signupPromise = async () => {
       const [err, data] = await signup({ ...formData, profile_picture: '' })
