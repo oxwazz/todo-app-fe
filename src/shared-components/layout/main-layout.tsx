@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 import { AiOutlinePieChart, AiOutlineLogout, AiOutlineSetting } from 'react-icons/ai'
 import { signOut } from 'next-auth/react'
 
+
 const Home: NextPage = ({ children }) => {
   const router = useRouter()
 

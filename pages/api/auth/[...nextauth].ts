@@ -1,72 +1,59 @@
 import NextAuth from 'next-auth'
 import CredentialProvider from 'next-auth/providers/credentials'
-import axios from 'axios'
-
-// const login = async (username: any, password: any): Promise<any[]> => {
-//   try {
-//     const { data } = await axios.post('http://localhost:8080/user/login', {
-//       username: username,
-//       password: password,
-//     })
-//     return [null, data]
-//   } catch (error: any) {
-//     console.log(error.response.data.error)
-//     return [error.response.data.error, {}]
-//   }
-// }
+import { login } from '@/src/requests'
 
 export default NextAuth({
   providers: [
     CredentialProvider({
       name: 'credentials',
       credentials: {
-        username: {
-          label: 'Email',
-          type: 'text',
-          placeholder: 'johndoe@test.com',
-        },
+        username: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      authorize: async (credentials: any) => {
-        // const [err, data] = await login(credentials.username, credentials.password)
-        // console.log(3333, err, data)
-        // database look up
-        // login failed
-        console.log(4444, 'SDf')
+      authorize: async ({ username, password }: any) => {
+        const [error, result] = await login({ username, password })
+        if (error) throw new Error(error.message)
 
-        // if (err) return null
-
-        return {
-          id: 2,
-          name: 'John',
-          email: 'johndoe@test.com',
-        }
+        const { id, username: username2, email, access_token } = result.data
+        return { id, username: username2, email, access_token }
+        // return {
+        //   id: 2,
+        //   name: 'John',
+        //   email: 'johndoe@test.com',
+        // }
       },
     }),
   ],
   callbacks: {
     jwt: ({ token, user }) => {
-      // first time jwt callback is run, user object is available
       if (user) {
         token.id = user.id
+        token.username = user.username
+        token.username = user.username
+        token.access_token = user.access_token
       }
 
       return token
     },
     session: ({ session, token }) => {
-      console.log(3333, { session, token })
       if (token) {
-        session.id = token.id
+        // @ts-ignore
+        session.user.id = token.id
+        // @ts-ignore
+        session.user.username = token.username
+        // @ts-ignore
+        session.user.access_token = token.access_token
       }
 
+      console.log(33330013, { session, token })
       return session
     },
   },
   secret: 'test',
-  jwt: {
-    secret: 'test',
-    // encryption: true,
-  },
+  // jwt: {
+  //   secret: 'test',
+  //   // encryption: true,
+  // },
   pages: {
     signIn: '/login',
   },

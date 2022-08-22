@@ -1,18 +1,21 @@
 import axios from 'axios'
 
-type Params = { username: string; password: string }
-type DataReturn = [error: any, data: {} | string]
+type LoginFn = ({
+  username,
+  password,
+}: {
+  username: string
+  password: string
+}) => Promise<[error: any, data: any]>
 
-const login = async ({ username, password }: Params): Promise<DataReturn> => {
+const login: LoginFn = async (loginData) => {
   try {
     const endpoint = `${process.env.NEXT_PUBLIC_URL_BACKEND}/user/login`
-    const { data } = await axios.post(endpoint, { username, password })
+    const { data } = await axios.post(endpoint, loginData)
+
     return [null, data]
   } catch (error: any) {
-    console.log(33334, error)
-    console.log(error.response.data.error)
-    return [error.response.data.error, {}]
+    return [error.response.data, null]
   }
 }
-
 export default login

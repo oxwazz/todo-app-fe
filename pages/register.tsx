@@ -1,2 +1,1 @@
-import Page from '@/src/pages/register'
-export default Page
+export { default } from '@/src/pages/register'

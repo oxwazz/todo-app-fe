@@ -7,8 +7,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query'
 import Head from 'next/head'
 
 import { MainLayout } from '@/src/shared-components/layout'
-import { fetchTodos as fetchData } from '@/src/requests'
-import { updateTodo as updateData } from '@/src/requests'
+import { fetchTodos, updateTodo } from '@/src/requests'
 import DialogUser from './dialog-user'
 
 type tasks = {
@@ -26,7 +25,9 @@ const Home: NextPage = () => {
   const queryClient = useQueryClient()
 
   queryClient.setMutationDefaults('addTodo', {
-    mutationFn: updateData,
+    mutationFn: async ({ task_id, is_done }) => {
+      return await updateTodo({ taskId: task_id, isDone: is_done })
+    },
     onMutate: async (variables: tasks) => {
       // Cancel current queries for the todos list
       await queryClient.cancelQueries('/todos')
@@ -55,7 +56,10 @@ const Home: NextPage = () => {
     retry: 3,
   })
 
-  const { data, isLoading, isError } = useQuery('/todos', ({ signal }) => fetchData({ signal }))
+  const { data, isLoading, isError } = useQuery('/todos', async ({ signal }) => {
+    const [result] = await fetchTodos({ signal })
+    return result
+  })
   const mutation = useMutation('addTodo')
 
   console.log(333399, { data, isLoading, isError })
@@ -94,7 +98,7 @@ const Home: NextPage = () => {
                 <AiOutlineLoading3Quarters className="animate-spin text-[#F7C046] text-2xl m-auto" />
               )}
               {!isLoading &&
-                data?.row.map((task, index) => (
+                data?.row?.map((todo, index) => (
                   <React.Fragment key={index}>
                     <div className="w-full flex items-center px-5">
                       <div className="w-[2.5rem] h-[2.5rem] border border-[#8E9CAD] rounded-xl flex justify-center items-center mr-3">
@@ -102,20 +106,20 @@ const Home: NextPage = () => {
                       </div>
                       <div className="mr-auto">
                         <p className="text-white font-bold text-sm mb-[0.125rem]">
-                          {task.description}
+                          {todo.description}
                         </p>
-                        <p className="text-[#8E9CAD] text-xs">{task.name}</p>
+                        <p className="text-[#8E9CAD] text-xs">{todo.name}</p>
                       </div>
                       <div
                         className="cursor-pointer"
                         onClick={() => {
-                          const variables: any = { task_id: task.task_id, is_done: !task.is_done }
+                          const variables: any = { task_id: todo.task_id, is_done: !todo.is_done }
                           console.log(33334, variables)
                           mutation.mutate(variables)
                         }}
                       >
                         <BsFillCheckSquareFill
-                          style={{ color: task.is_done ? '#F7C046' : '#8e9cad5a' }}
+                          style={{ color: todo.is_done ? '#F7C046' : '#8e9cad5a' }}
                         />
                       </div>
                     </div>

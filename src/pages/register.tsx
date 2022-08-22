@@ -36,18 +36,22 @@ export default function Register() {
     },
   })
 
-  const onSubmit = async (formData: FormValues) => {
+  const onSubmit = async (registerData: FormValues) => {
     const signupPromise = async () => {
-      const [err, data] = await signup({ ...formData, profile_picture: '' })
-      console.log(33331, err, data)
-      if (err) throw Error('Nope. Try again.')
-      return data
+      const [err] = await signup({
+        username: registerData.username,
+        password: registerData.password,
+        email: registerData.email,
+        profile_picture: '',
+      })
+      if (err) return Promise.reject(err.message)
+      await Promise.resolve()
     }
 
     toast.promise(signupPromise(), {
       loading: 'Sign Up..',
       success: 'Sign Up Success',
-      error: 'Sign Up Error',
+      error: (error) => `Sign Up Error: ${error}`,
     })
   }
 

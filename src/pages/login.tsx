@@ -32,32 +32,19 @@ export default function Register() {
     },
   })
 
-  const onSubmit = async (formData: FormValues) => {
+  const onSubmit = async ({ username, password }: FormValues) => {
     const loginPromise = async () => {
-      const [err, data] = await login(formData)
-      console.log(33331, err, data)
-
-      const tes = await signIn('credentials', {
-        username: formData.username,
-        password: formData.password,
-        redirect: false,
-      })
-
-      console.log(33331, tes)
-
-      if (err) throw Error('Nope. Try again.')
-      router.push('/app')
+      // @ts-ignore
+      const { error } = await signIn('credentials', { username, password, redirect: false })
+      if (error) return Promise.reject(error)
+      await router.push('/app')
     }
 
-    toast.promise(loginPromise(), {
+    await toast.promise(loginPromise(), {
       loading: 'Sign In..',
       success: 'Sign In Success',
-      error: 'Sign In Error',
+      error: (error) => `Sign In Error: ${error}`,
     })
-  }
-
-  const onError = async (error: any) => {
-    console.log(33333, error)
   }
 
   return (
@@ -66,7 +53,7 @@ export default function Register() {
       <div className="container mx-auto flex justify-center items-center h-screen">
         <div className="flex flex-col gap-5 items-center">
           <h1 className="text-2xl font-bold text-white">Todo App</h1>
-          <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit, onError)}>
+          <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-1">
               <label className="text-white" htmlFor="username">
                 Username

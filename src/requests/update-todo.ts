@@ -1,15 +1,30 @@
 import axios from 'axios'
+import { getSession } from 'next-auth/react'
 
-type Params = {
-  task_id: string
-  is_done: string
+type UpdateTodoFn = (params: { taskId: string; isDone: string }) => Promise<[data: any, error: any]>
+
+const updateTodo: UpdateTodoFn = async ({ taskId, isDone }) => {
+  console.log(3333002, { taskId, isDone })
+  const session = await getSession()
+  // @ts-ignore
+  const { access_token } = session?.user
+
+  try {
+    const { data } = await axios.patch(
+      `${process.env.NEXT_PUBLIC_URL_BACKEND}/todos/${taskId}`,
+      {
+        is_done: isDone.toString(),
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + access_token, //the token is a variable which holds the token
+        },
+      }
+    )
+
+    return [data, null]
+  } catch (error) {
+    return [null, error]
+  }
 }
-
-const updateTodo = async ({ task_id, is_done }: Params): Promise<any> => {
-  const endpoint = `${process.env.NEXT_PUBLIC_URL_BACKEND}/todos/${task_id}`
-  const data = { is_done: is_done.toString() }
-  const data1 = await axios.patch(endpoint, data)
-  return data1
-}
-
 export default updateTodo

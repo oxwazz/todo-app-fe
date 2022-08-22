@@ -1,35 +1,25 @@
 import axios from 'axios'
 
-type Params = {
+type RegisterFunc = ({
+  username,
+  password,
+  email,
+  profile_picture,
+}: {
   username: string
   password: string
   email: string
   profile_picture?: string
-}
+}) => Promise<[error: any, data: any]>
 
-type DataReturn = [error: any, data: {} | string]
-
-const register = async ({
-  username,
-  password,
-  email,
-  profile_picture = '',
-}: Params): Promise<DataReturn> => {
+const register: RegisterFunc = async (registerData) => {
   try {
     const endpoint = `${process.env.NEXT_PUBLIC_URL_BACKEND}/user/register`
-    console.log(33339, endpoint)
-    const { data } = await axios.post(endpoint, {
-      username,
-      password,
-      email,
-      profile_picture,
-    })
-    console.log(333399, 'error.response.data.error')
+    const { data } = await axios.post(endpoint, registerData)
+
     return [null, data]
   } catch (error: any) {
-    console.log(333399, error.response)
-    return [error.response.data.error, {}]
+    return [error.response.data, null]
   }
 }
-
 export default register
